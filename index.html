@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Kindness Detective: Zara and the Secret Helpers</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@400..700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fefcf6;
+    }
+    .heading-font {
+      font-family: 'Fredoka', sans-serif;
+    }
+    .page-curl {
+      position: relative;
+    }
+    .page-curl::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 24px 24px;
+      border-color: transparent transparent #e2e8f0 #e2e8f0;
+      background: #fdfbf7;
+      box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.05);
+      border-bottom-right-radius: 6px;
+    }
+    /* Sweet decorative animations */
+    .sparkle {
+      animation: pulseSparkle 2.5s infinite ease-in-out;
+    }
+    @keyframes pulseSparkle {
+      0%, 100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 2px rgba(245,158,11,0.2)); }
+      50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 10px rgba(245,158,11,0.6)); }
+    }
+    .float-slow {
+      animation: floatEffect 4s infinite ease-in-out;
+    }
+    @keyframes floatEffect {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800 selection:bg-amber-200">
+
+  <!-- Main Navigation Header -->
+  <header class="bg-amber-100/90 border-b-4 border-amber-200/60 sticky top-0 z-40 backdrop-blur-md shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="goToChapter(1)">
+        <div class="bg-amber-400 p-2.5 rounded-full shadow-inner text-amber-950 float-slow">
+          <i class="fa-solid fa-user-secret text-lg md:text-xl"></i>
+        </div>
+        <div>
+          <h1 class="heading-font text-lg md:text-2xl font-black text-amber-950 tracking-tight leading-none">The Kindness Detective</h1>
+          <span class="text-[10px] md:text-xs font-bold text-amber-700 uppercase tracking-wider">Zara & the Secret Helpers</span>
+        </div>
+      </div>
+
+      <!-- Live Detective Badges Counter -->
+      <div class="flex items-center space-x-2">
+        <div class="bg-white/95 border border-amber-200 rounded-full px-3 py-1.5 flex items-center space-x-2 shadow-sm">
+          <i class="fa-solid fa-trophy text-amber-500 sparkle"></i>
+          <span id="badgeCounter" class="text-xs md:text-sm font-black text-amber-900">0/5 Badges</span>
+        </div>
+        <button onclick="switchTab('notebook')" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-2.5 shadow-md flex items-center justify-center transition-all relative">
+          <i class="fa-solid fa-book-open text-xs md:text-sm"></i>
+          <span id="notebookAlert" class="absolute -top-1 -right-1 bg-red-500 w-3 h-3 rounded-full hidden border-2 border-white animate-ping"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Map & Chapter Navigation Bar -->
+  <nav class="bg-white border-b border-slate-100 overflow-x-auto whitespace-nowrap py-3 px-4">
+    <div class="max-w-5xl mx-auto flex justify-start md:justify-center gap-2 md:gap-4 px-2">
+      <button onclick="goToChapter(1)" id="nav-ch1" class="px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-amber-500 text-white">Ch 1: Garden</button>
+      <button onclick="goToChapter(2)" id="nav-ch2" class="px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-slate-100 text-slate-600">Ch 2: Benny</button>
+      <button onclick="goToChapter(3)" id="nav-ch3" class="px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-slate-100 text-slate-600">Ch 3: Secrets</button>
+      <button onclick="goToChapter(4)" id="nav-ch4" class="px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-slate-100 text-slate-600">Ch 4: Observation</button>
+      <button onclick="goToChapter(5)" id="nav-ch5" class="px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-slate-100 text-slate-600">Ch 5: Big Reveal</button>
+      <button onclick="goToChapter(6)" id="nav-ch6" class="px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-slate-100 text-slate-600">Ch 6: Festival</button>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="flex-grow max-w-5xl w-full mx-auto p-4 md:p-6 flex flex-col justify-start gap-6">
+
+    <!-- Active Panels Area -->
+    <div id="gameContent" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      
+      <!-- LEFT COLUMN: Interactive Play Zone & Gameplay -->
+      <div class="lg:col-span-7 flex flex-col gap-4">
+        
+        <!-- Chapter 1: Grandma Noor's Garden Challenge -->
+        <div id="stage-ch1" class="stage-panel bg-emerald-50 rounded-3xl p-5 border-4 border-emerald-200 shadow-md flex flex-col justify-between min-h-[400px]">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Garden Clue Hunt</span>
+              <span class="text-xs text-emerald-800 font-bold bg-emerald-100 px-2.5 py-1 rounded-full"><i class="fa-solid fa-leaf mr-1"></i> Tap to plant</span>
+            </div>
+            <h3 class="heading-font text-lg font-bold text-emerald-950 mb-2">Grandma Noor's Garden</h3>
+            <p class="text-xs md:text-sm text-emerald-800 mb-4">Yesterday this garden was completely empty. Today, magic flowers popped up! Help Grandma Noor plant more beautiful flowers to find the secret seed-marker clue.</p>
+          </div>
+
+          <!-- Garden Grid Playground -->
+          <div class="grid grid-cols-4 gap-3 bg-white/70 p-4 rounded-2xl border border-emerald-100 my-2 select-none">
+            <div onclick="tapGardenPlot(0)" id="garden-0" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+            <div onclick="tapGardenPlot(1)" id="garden-1" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+            <div onclick="tapGardenPlot(2)" id="garden-2" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+            <div onclick="tapGardenPlot(3)" id="garden-3" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+            <div onclick="tapGardenPlot(4)" id="garden-4" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+            <div onclick="tapGardenPlot(5)" id="garden-5" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+            <div onclick="tapGardenPlot(6)" id="garden-6" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+            <div onclick="tapGardenPlot(7)" id="garden-7" class="h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all">🕳️</div>
+          </div>
+
+          <div class="bg-white/80 p-3 rounded-xl border border-emerald-100 text-center text-xs text-emerald-900">
+            <span id="gardenPrompt" class="font-bold">Tap empty soil plots to plant flowers and find what was left behind!</span>
+          </div>
+        </div>
+
+        <!-- Chapter 2: Benny's Bowl & Blue Ribbon Clue -->
+        <div id="stage-ch2" class="stage-panel bg-sky-50 rounded-3xl p-5 border-4 border-sky-200 shadow-md flex flex-col justify-between min-h-[400px] hidden">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Benny's Clue Hunt</span>
+              <span id="ribbonBanner" class="text-xs text-sky-800 font-bold bg-sky-100 px-2.5 py-1 rounded-full">Not Found Yet</span>
+            </div>
+            <h3 class="heading-font text-lg font-bold text-sky-950 mb-2">Benny the Stray's Corner</h3>
+            <p class="text-xs md:text-sm text-sky-800 mb-4">Benny is sitting happily by his shiny red bowl. Someone just filled it with fresh water and dry kibble. Spot the small blue ribbon left behind!</p>
+          </div>
+
+          <!-- Benny Interaction Area -->
+          <div class="relative w-full h-44 flex items-end justify-center my-4 overflow-hidden bg-sky-100 rounded-2xl border border-sky-200">
+            <!-- Cloud background deco -->
+            <div class="absolute top-4 left-6 text-white text-3xl opacity-40"><i class="fa-solid fa-cloud"></i></div>
+            <div class="absolute top-10 right-10 text-white text-4xl opacity-40"><i class="fa-solid fa-cloud"></i></div>
+
+            <!-- Dog Character -->
+            <div class="absolute left-8 bottom-3 flex flex-col items-center">
+              <div class="text-6xl filter drop-shadow-md cursor-pointer animate-bounce select-none" onclick="triggerBennyBark()">🐕</div>
+              <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-200 mt-1 shadow-sm">Benny</span>
+            </div>
+
+            <!-- Interactive Dog Bowls -->
+            <div class="absolute left-1/2 -translate-x-1/2 bottom-3 flex gap-4">
+              <div onclick="triggerBowlSplash()" class="relative cursor-pointer transition-transform hover:scale-105">
+                <!-- Water Bowl -->
+                <div class="w-16 h-8 bg-cyan-500 rounded-b-xl border-b-2 border-cyan-700 flex items-center justify-center">
+                  <div class="absolute top-0.5 left-1 right-1 h-1 bg-cyan-300 rounded-full opacity-60"></div>
+                  <!-- Water ripples -->
+                  <div class="absolute inset-1 border border-white/40 rounded-full animate-ping" style="animation-duration: 2s;"></div>
+                </div>
+              </div>
+
+              <div onclick="triggerBowlEat()" class="relative cursor-pointer transition-transform hover:scale-105">
+                <!-- Food Bowl -->
+                <div class="w-20 h-8 bg-red-500 rounded-b-xl border-b-2 border-red-700 flex items-center justify-center">
+                  <div class="absolute top-0.5 left-1 right-1 h-1.5 bg-amber-800 rounded-full"></div>
+                  <span class="text-[8px] font-bold text-white tracking-widest uppercase">BENNY</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- THE CLUE: Blue Ribbon -->
+            <div id="blueRibbon" class="absolute right-8 bottom-4 cursor-pointer group" onclick="findRibbon()">
+              <div class="relative p-2 bg-yellow-100/70 hover:bg-yellow-200 rounded-full border border-dashed border-amber-400 shadow-sm transition-all scale-110">
+                <div class="absolute inset-0 rounded-full bg-blue-400 opacity-20 animate-ping"></div>
+                <svg class="w-8 h-8 text-blue-500 filter drop-shadow animate-bounce" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12,2A5,5 0 0,1 17,7C17,9.33 15.39,11.29 13.18,11.83L17.2,21H14.8L12,14.6L9.2,21H6.8L10.82,11.83C8.61,11.29 7,9.33 7,7A5,5 0 0,1 12,2M12,4A3,3 0 0,0 9,7A3,3 0 0,0 12,10A3,3 0 0,0 15,7A3,3 0 0,0 12,4Z" />
+                </svg>
+                <div class="absolute -top-6 -right-2 bg-amber-400 text-amber-950 text-[8px] font-extrabold px-1 rounded shadow">CLUE</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white/80 p-3 rounded-xl border border-sky-100 text-center text-xs text-sky-900">
+            <span id="bennyPrompt" class="font-bold">Interact with Benny or tap the shiny Blue Ribbon on the grass!</span>
+          </div>
+        </div>
+
+        <!-- Chapter 3: More Secrets Matcher Mini-game -->
+        <div id="stage-ch3" class="stage-panel bg-indigo-50 rounded-3xl p-5 border-4 border-indigo-200 shadow-md flex flex-col justify-between min-h-[400px] hidden">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Kindness Matcher</span>
+              <span id="matchScore" class="text-xs text-indigo-800 font-bold bg-indigo-100 px-2.5 py-1 rounded-full">0/3 Solved</span>
+            </div>
+            <h3 class="heading-font text-lg font-bold text-indigo-950 mb-2">The Mystery Deliveries</h3>
+            <p class="text-xs md:text-sm text-indigo-800 mb-4">Secret helpers left three packages across town. Drag or click the item, then click its rightful recipient to complete the kindness act!</p>
+          </div>
+
+          <!-- Matching board -->
+          <div class="grid grid-cols-2 gap-4 my-2">
+            <!-- Items Column -->
+            <div class="space-y-2">
+              <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Items Found</h4>
+              <button onclick="selectMatchItem('toy', this)" id="item-toy" class="w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all">
+                <span class="text-2xl">🧸</span>
+                <span class="text-xs font-bold text-slate-700">Lost Teddy Bear</span>
+              </button>
+              <button onclick="selectMatchItem('books', this)" id="item-books" class="w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all">
+                <span class="text-2xl">📚</span>
+                <span class="text-xs font-bold text-slate-700">Mystery Books Stack</span>
+              </button>
+              <button onclick="selectMatchItem('veggies', this)" id="item-veggies" class="w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all">
+                <span class="text-2xl">🥦</span>
+                <span class="text-xs font-bold text-slate-700">Fresh Garden Veggies</span>
+              </button>
+            </div>
+
+            <!-- Destinations Column -->
+            <div class="space-y-2">
+              <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Recipients</h4>
+              <button onclick="targetMatchRecipient('boy', this)" id="target-boy" class="w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all">
+                <span class="text-2xl">👦</span>
+                <span class="text-xs font-bold text-slate-700">The Little Boy</span>
+              </button>
+              <button onclick="targetMatchRecipient('library', this)" id="target-library" class="w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all">
+                <span class="text-2xl">🏫</span>
+                <span class="text-xs font-bold text-slate-700">Town Library Basket</span>
+              </button>
+              <button onclick="targetMatchRecipient('couple', this)" id="target-couple" class="w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all">
+                <span class="text-2xl">👴👵</span>
+                <span class="text-xs font-bold text-slate-700">The Elderly Couple</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-white/80 p-3 rounded-xl border border-indigo-100 text-center text-xs text-indigo-900">
+            <span id="matcherPrompt" class="font-bold">Select an item on the left, then choose where it belongs!</span>
+          </div>
+        </div>
+
+        <!-- Chapter 4: Following the Clues Observation Deck -->
+        <div id="stage-ch4" class="stage-panel bg-amber-50 rounded-3xl p-5 border-4 border-amber-200 shadow-md flex flex-col justify-between min-h-[400px] hidden">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Observation Deck</span>
+              <span class="text-xs text-amber-800 font-bold bg-amber-100 px-2.5 py-1 rounded-full"><i class="fa-solid fa-binoculars mr-1"></i> Spot activities</span>
+            </div>
+            <h3 class="heading-font text-lg font-bold text-amber-950 mb-2">Zara's Spyglass</h3>
+            <p class="text-xs md:text-sm text-amber-800 mb-4">Zara is staking out the town from behind a tree. Three townspeople are carrying out mysterious acts. Click to focus your binoculars on each!</p>
+          </div>
+
+          <!-- Watch Board -->
+          <div class="grid grid-cols-3 gap-2 my-2 text-center">
+            <div onclick="spyOnPerson('mr-ali')" class="bg-white p-3 rounded-2xl border-2 border-slate-200 hover:border-amber-400 cursor-pointer transition-all hover:scale-105 flex flex-col items-center">
+              <div class="text-4xl py-2">👨‍🌾</div>
+              <span class="text-xs font-extrabold text-slate-800">Mr. Ali</span>
+              <span id="spy-mr-ali" class="text-[10px] bg-slate-100 text-slate-500 font-bold px-2 py-0.5 rounded-full mt-2">Unwatched</span>
+            </div>
+
+            <div onclick="spyOnPerson('schoolgirl')" class="bg-white p-3 rounded-2xl border-2 border-slate-200 hover:border-amber-400 cursor-pointer transition-all hover:scale-105 flex flex-col items-center">
+              <div class="text-4xl py-2">👧</div>
+              <span class="text-xs font-extrabold text-slate-800">The Schoolgirl</span>
+              <span id="spy-schoolgirl" class="text-[10px] bg-slate-100 text-slate-500 font-bold px-2 py-0.5 rounded-full mt-2">Unwatched</span>
+            </div>
+
+            <div onclick="spyOnPerson('baker')" class="bg-white p-3 rounded-2xl border-2 border-slate-200 hover:border-amber-400 cursor-pointer transition-all hover:scale-105 flex flex-col items-center">
+              <div class="text-4xl py-2">👨‍🍳</div>
+              <span class="text-xs font-extrabold text-slate-800">The Baker</span>
+              <span id="spy-baker" class="text-[10px] bg-slate-100 text-slate-500 font-bold px-2 py-0.5 rounded-full mt-2">Unwatched</span>
+            </div>
+          </div>
+
+          <div class="bg-white/80 p-3 rounded-xl border border-amber-100 text-center text-xs text-amber-900">
+            <span id="binocularsPrompt" class="font-bold">Select a citizen to observe what kind act they are secretly carrying out!</span>
+          </div>
+        </div>
+
+        <!-- Chapter 5: The Big Discovery Deductions -->
+        <div id="stage-ch5" class="stage-panel bg-rose-50 rounded-3xl p-5 border-4 border-rose-200 shadow-md flex flex-col justify-between min-h-[400px] hidden">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Detective Board</span>
+              <span id="revealStatus" class="text-xs text-rose-800 font-bold bg-rose-100 px-2.5 py-1 rounded-full">Connecting Clues</span>
+            </div>
+            <h3 class="heading-font text-lg font-bold text-rose-950 mb-2">The Kindness Network</h3>
+            <p class="text-xs md:text-sm text-rose-800 mb-4">Aha! Zara has pinned photos to her corkboard. Link each helper to their quiet act of kindness to solve the case of the secret network!</p>
+          </div>
+
+          <!-- Pin Board Links -->
+          <div class="space-y-3.5 my-2">
+            <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-rose-100 shadow-sm">
+              <div class="flex items-center space-x-3">
+                <span class="text-2xl">👨‍🌾</span>
+                <span class="text-xs font-bold text-slate-700">Mr. Ali</span>
+              </div>
+              <select id="deduct-ali" onchange="checkDeductions()" class="bg-slate-50 border-2 border-slate-200 text-xs font-bold rounded-xl px-2 py-1.5 focus:border-rose-400 outline-none">
+                <option value="">Choose Act...</option>
+                <option value="dog">Feeding Benny the Dog</option>
+                <option value="flowers">Carrying Beautiful Flowers</option>
+                <option value="bread">Baking Loaves for Families</option>
+              </select>
+            </div>
+
+            <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-rose-100 shadow-sm">
+              <div class="flex items-center space-x-3">
+                <span class="text-2xl">👧</span>
+                <span class="text-xs font-bold text-slate-700">Schoolgirl</span>
+              </div>
+              <select id="deduct-girl" onchange="checkDeductions()" class="bg-slate-50 border-2 border-slate-200 text-xs font-bold rounded-xl px-2 py-1.5 focus:border-rose-400 outline-none">
+                <option value="">Choose Act...</option>
+                <option value="dog">Feeding Benny the Dog</option>
+                <option value="flowers">Carrying Beautiful Flowers</option>
+                <option value="bread">Baking Loaves for Families</option>
+              </select>
+            </div>
+
+            <div class="flex items-center justify-between bg-white p-3 rounded-2xl border border-rose-100 shadow-sm">
+              <div class="flex items-center space-x-3">
+                <span class="text-2xl">👨‍🍳</span>
+                <span class="text-xs font-bold text-slate-700">The Baker</span>
+              </div>
+              <select id="deduct-baker" onchange="checkDeductions()" class="bg-slate-50 border-2 border-slate-200 text-xs font-bold rounded-xl px-2 py-1.5 focus:border-rose-400 outline-none">
+                <option value="">Choose Act...</option>
+                <option value="dog">Feeding Benny the Dog</option>
+                <option value="flowers">Carrying Beautiful Flowers</option>
+                <option value="bread">Baking Loaves for Families</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bg-white/80 p-3 rounded-xl border border-rose-100 text-center text-xs text-rose-900">
+            <span id="deductionPrompt" class="font-bold">Match all three townspeople correctly to see what Zara realizes!</span>
+          </div>
+        </div>
+
+        <!-- Chapter 6: The Kindness Festival Celebration -->
+        <div id="stage-ch6" class="stage-panel bg-yellow-50 rounded-3xl p-5 border-4 border-yellow-200 shadow-md flex flex-col justify-between min-h-[400px] hidden">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Festival Square</span>
+              <span class="text-xs text-yellow-800 font-bold bg-yellow-100 px-2.5 py-1 rounded-full"><i class="fa-solid fa-masks-theater mr-1"></i> Spread joy</span>
+            </div>
+            <h3 class="heading-font text-lg font-bold text-yellow-950 mb-1">The Grand Kindness Parade</h3>
+            <p class="text-xs md:text-sm text-yellow-800 mb-3">Everyone is cheering in the town square! Tap anywhere on the stage to release randomized confetti sparks and spread smiles throughout the crowd!</p>
+          </div>
+
+          <!-- Festival Interactive Zone -->
+          <div id="festivalStage" onclick="releaseConfetti(event)" class="relative w-full h-44 bg-gradient-to-t from-orange-100 to-yellow-100 rounded-2xl border border-yellow-200 overflow-hidden cursor-pointer flex flex-col justify-end items-center pb-4">
+            <!-- Confetti instructions inside visual container -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+              <span class="text-5xl">🎉✨🌸🥳</span>
+            </div>
+
+            <!-- Town crowd emoji parade -->
+            <div class="flex justify-center space-x-3.5 z-10 select-none">
+              <div class="text-4xl animate-bounce" style="animation-delay: 0.1s;">👵</div>
+              <div class="text-4xl animate-bounce" style="animation-delay: 0.3s;">👨‍🌾</div>
+              <div class="text-4xl animate-bounce" style="animation-delay: 0.5s;">👧</div>
+              <div class="text-4xl animate-bounce" style="animation-delay: 0.2s;">👨‍🍳</div>
+              <div class="text-4xl animate-bounce" style="animation-delay: 0.4s;">🐕</div>
+            </div>
+
+            <div id="sparkleStats" class="absolute top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow">
+              0 Confetti Poppers Released!
+            </div>
+          </div>
+
+          <div class="bg-white/80 p-3 rounded-xl border border-yellow-100 text-center text-xs text-yellow-900">
+            <span class="font-bold">Tap inside the Parade Stage to celebrate the spirit of kindness!</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Elegant Book Text / Storytelling -->
+      <div class="lg:col-span-5 flex flex-col gap-4">
+        
+        <!-- Story Panel Container -->
+        <div id="storybookCard" class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-100 flex flex-col justify-between min-h-[420px] page-curl">
+          <div>
+            <div class="flex items-center space-x-2 text-amber-600 mb-3 text-xs font-bold tracking-wider uppercase">
+              <span id="bookChapterNumber">Chapter 1</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span id="bookChapterTitle">A Curious Girl</span>
+            </div>
+            
+            <h2 id="storyHeader" class="heading-font text-2xl md:text-3xl font-extrabold text-slate-900 mb-4 leading-snug">
+              A Curious Girl
+            </h2>
+
+            <!-- Live Story Paragraphs Content -->
+            <div id="storyText" class="space-y-4 text-slate-700 leading-relaxed text-sm md:text-base">
+              <p>Zara was a cheerful girl who loved mysteries. She lived in a colorful little town where everyone seemed busy and happy.</p>
+              <p>One morning, Zara noticed something strange.</p>
+              <p class="font-medium text-slate-900 bg-emerald-50 p-3 rounded-xl border-l-4 border-emerald-400">
+                Old Grandma Noor's garden, which had been empty yesterday, was suddenly full of beautiful flowers.
+              </p>
+              <p class="italic text-slate-600">"Who planted these?" Zara wondered.</p>
+              <p>Grandma Noor smiled. "I don't know. They were here when I woke up."</p>
+              <p>Zara's eyes sparkled. "A mystery!"</p>
+            </div>
+          </div>
+
+          <!-- Bottom Action Flow buttons -->
+          <div class="mt-8 pt-4 border-t border-slate-100 flex flex-col gap-2">
+            <button id="bookActionBtn" onclick="onChapterAction()" class="w-full bg-amber-500 hover:bg-amber-600 text-amber-950 font-extrabold py-3 px-4 rounded-2xl shadow transition-all transform active:scale-95 flex items-center justify-center space-x-2 text-sm md:text-base">
+              <span>Next Chapter</span>
+              <i class="fa-solid fa-circle-arrow-right"></i>
+            </button>
+            <p id="bookActionHint" class="text-[10px] md:text-xs text-center text-slate-400 font-medium">Solve Chapter 1's garden challenge to proceed.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Active Tab Panel: Zara's Detective Notebook -->
+    <div id="panel-notebook" class="w-full bg-white rounded-3xl shadow-xl border-4 border-slate-700 overflow-hidden hidden transition-all duration-300">
+      <div class="bg-slate-800 py-3 px-6 flex justify-between items-center text-white">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-journal-whills text-amber-400"></i>
+          <span class="font-mono text-sm tracking-wider">ZARA'S INVESTIGATION NOTEBOOK</span>
+        </div>
+        <span class="text-[10px] bg-indigo-500 text-white font-extrabold px-2 py-0.5 rounded">CASE #03 FULL MAP</span>
+      </div>
+
+      <!-- Notebook Wire Spiral Spine Style Top -->
+      <div class="w-full bg-slate-200 h-4 flex justify-around px-8">
+        <div class="w-2.5 h-6 bg-slate-400 rounded-full -mt-2 shadow-inner"></div>
+        <div class="w-2.5 h-6 bg-slate-400 rounded-full -mt-2 shadow-inner"></div>
+        <div class="w-2.5 h-6 bg-slate-400 rounded-full -mt-2 shadow-inner"></div>
+        <div class="w-2.5 h-6 bg-slate-400 rounded-full -mt-2 shadow-inner"></div>
+        <div class="w-2.5 h-6 bg-slate-400 rounded-full -mt-2 shadow-inner"></div>
+        <div class="w-2.5 h-6 bg-slate-400 rounded-full -mt-2 shadow-inner"></div>
+        <div class="w-2.5 h-6 bg-slate-400 rounded-full -mt-2 shadow-inner"></div>
+      </div>
+
+      <div class="p-6 md:p-8 bg-amber-50/40 relative min-h-[450px]">
+        <!-- Blue notebook margin line -->
+        <div class="absolute left-6 md:left-10 top-0 bottom-0 w-0.5 bg-red-200"></div>
+
+        <div class="pl-6 md:pl-10 space-y-6">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b-2 border-dashed border-slate-300 pb-4">
+            <div>
+              <h3 class="heading-font text-2xl font-black text-slate-800">🕵️‍♀️ Case of the Secret Helpers</h3>
+              <p class="text-xs text-slate-500">Log Status: <span id="notebookCaseStatus" class="font-bold text-amber-600">Gathering Intelligence</span></p>
+            </div>
+            <button onclick="switchTab('story')" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 px-3 rounded-full shadow-sm mt-2 md:mt-0">
+              <i class="fa-solid fa-arrow-left mr-1"></i> Back to Reader
+            </button>
+          </div>
+
+          <!-- Unlocked Badges / Evidence locker -->
+          <div>
+            <h4 class="font-extrabold text-sm text-slate-700 tracking-wide uppercase mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-briefcase text-indigo-500"></i> Evidence Locker & Badges
+            </h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <!-- Badge 1: Garden Seeder -->
+              <div id="badge-garden" class="p-3 bg-white rounded-2xl border-2 border-slate-100 flex flex-col items-center text-center transition-all opacity-50">
+                <span class="text-3xl mb-1">🌸</span>
+                <span class="text-xs font-black text-slate-800 leading-none">Green Thumb</span>
+                <span class="text-[9px] text-slate-400 mt-1">Found garden seeds</span>
+              </div>
+
+              <!-- Badge 2: Blue Ribbon -->
+              <div id="badge-ribbon" class="p-3 bg-white rounded-2xl border-2 border-slate-100 flex flex-col items-center text-center transition-all opacity-50">
+                <span class="text-3xl mb-1">🎗️</span>
+                <span class="text-xs font-black text-slate-800 leading-none">Blue Ribbon</span>
+                <span class="text-[9px] text-slate-400 mt-1">Discovered dog collar</span>
+              </div>
+
+              <!-- Badge 3: Matchmaker -->
+              <div id="badge-deliveries" class="p-3 bg-white rounded-2xl border-2 border-slate-100 flex flex-col items-center text-center transition-all opacity-50">
+                <span class="text-3xl mb-1">🎁</span>
+                <span class="text-xs font-black text-slate-800 leading-none">Parcel Master</span>
+                <span class="text-[9px] text-slate-400 mt-1">Returned lost items</span>
+              </div>
+
+              <!-- Badge 4: Master Mind -->
+              <div id="badge-network" class="p-3 bg-white rounded-2xl border-2 border-slate-100 flex flex-col items-center text-center transition-all opacity-50">
+                <span class="text-3xl mb-1">🧠</span>
+                <span class="text-xs font-black text-slate-800 leading-none">Kindness Guru</span>
+                <span class="text-[9px] text-slate-400 mt-1">Mapped helper network</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detective's Own Journal Section -->
+          <div class="pt-4 border-t border-slate-200">
+            <label for="detectiveNotes" class="block font-extrabold text-sm text-slate-700 tracking-wide uppercase mb-2 flex items-center justify-between">
+              <span><i class="fa-solid fa-pen-nib text-amber-500"></i> Write Your Detective Thoughts:</span>
+              <span class="text-[10px] text-amber-700 font-bold bg-amber-100 px-2 py-0.5 rounded">Auto-saving</span>
+            </label>
+            <textarea id="detectiveNotes" rows="4" class="w-full bg-white/80 focus:bg-white p-4 rounded-2xl border-2 border-slate-200 focus:border-amber-400 focus:outline-none transition-all font-mono text-sm leading-relaxed text-slate-700 shadow-inner placeholder:italic" placeholder="I think the secret helpers are doing this because..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Helper Assistant Interaction -->
+    <div class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-3xl p-5 md:p-6 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-start space-x-3.5">
+        <div class="bg-white text-amber-600 p-3 rounded-2xl text-2xl shadow-md shrink-0">
+          🔍
+        </div>
+        <div>
+          <h4 class="font-bold text-lg leading-tight">Need a Hint, Detective?</h4>
+          <p class="text-sm text-amber-50 opacity-90 mt-1 max-w-xl">
+            You can type your findings or ask a question to Zara’s Detective Kit AI assistant about the mysterious activities happening around town!
+          </p>
+        </div>
+      </div>
+      
+      <div class="w-full md:w-auto shrink-0">
+        <button onclick="openAiModal()" class="w-full bg-white hover:bg-amber-50 text-amber-900 font-extrabold py-3 px-6 rounded-2xl shadow transition-all transform active:scale-95 flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-600"></i>
+          <span>Ask Zara's Assistant</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Interactive AI Modal (Powered by Gemini) -->
+  <div id="aiModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-100 flex flex-col max-h-[85vh]">
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-amber-500 to-amber-600 text-white p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-magnifying-glass-chart text-xl"></i>
+          <span class="font-bold text-md heading-font">Zara's Detective Kit AI</span>
+        </div>
+        <button onclick="closeAiModal()" class="text-white hover:text-amber-100 transition-colors">
+          <i class="fa-solid fa-circle-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Chat Screen -->
+      <div id="chatMessages" class="flex-grow overflow-y-auto p-4 space-y-3 bg-slate-50 min-h-[250px]">
+        <!-- Welcome Bot Msg -->
+        <div class="flex items-start space-x-2.5">
+          <div class="bg-amber-100 p-1.5 rounded-lg text-lg">🔍</div>
+          <div class="bg-white p-3 rounded-2xl rounded-tl-none text-xs md:text-sm text-slate-700 shadow-sm max-w-[80%]">
+            Hello, Detective partner! I am your AI clue helper. Ask me about Mr. Ali, Grandma Noor, the blue ribbon, or tell me about a kind deed you want to try today!
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Suggested Queries -->
+      <div class="p-2 bg-slate-100 flex gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none border-t border-b border-slate-200">
+        <button onclick="setQuery('Why is Grandma Noor\'s garden suddenly full of flowers?')" class="bg-white hover:bg-amber-50 border border-slate-200 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full shadow-sm shrink-0">
+          Garden Flowers?
+        </button>
+        <button onclick="setQuery('Why does someone feed Benny the dog secretly?')" class="bg-white hover:bg-amber-50 border border-slate-200 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full shadow-sm shrink-0">
+          Who feeds Benny?
+        </button>
+        <button onclick="setQuery('How can kindness spread like a ripple?')" class="bg-white hover:bg-amber-50 border border-slate-200 text-[11px] font-bold text-slate-700 px-3 py-1.5 rounded-full shadow-sm shrink-0">
+          Kindness Ripple?
+        </button>
+      </div>
+
+      <!-- Input Bar -->
+      <div class="p-3 bg-white flex items-center space-x-2 border-t border-slate-100">
+        <input type="text" id="userInput" onkeydown="if(event.key === 'Enter') sendMessage()" class="flex-grow p-3 bg-slate-50 focus:bg-white border-2 border-slate-100 focus:border-amber-400 focus:outline-none rounded-xl text-xs md:text-sm transition-all" placeholder="Ask Zara's Clue Analyzer...">
+        <button onclick="sendMessage()" class="bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-xl transition-all shadow active:scale-95">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Alert Toast Box (Custom alert for mobile inside iFrames) -->
+  <div id="customToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 text-xs md:text-sm font-bold tracking-wide transition-all duration-300 transform translate-y-20 opacity-0 z-50">
+    <i id="toastIcon" class="fa-solid fa-circle-info text-yellow-400"></i>
+    <span id="toastMessage">Ribbon found! Added to evidence chest.</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 py-6 px-4 text-center border-t-4 border-slate-900">
+    <div class="max-w-4xl mx-auto space-y-2">
+      <p class="text-xs font-semibold uppercase tracking-widest text-slate-500">The Kindness Detective Interactive Adventure Series</p>
+      <p class="text-sm">Spread kindness everywhere you go. Another mystery solved by Zara and you!</p>
+    </div>
+  </footer>
+
+  <!-- Interactivity Script -->
+  <script>
+    // Chapter Data
+    const chapters = {
+      1: {
+        number: "Chapter 1",
+        title: "A Curious Girl",
+        header: "A Curious Girl",
+        text: `
+          <p>Zara was a cheerful girl who loved mysteries. She lived in a colorful little town where everyone seemed busy and happy.</p>
+          <p>One morning, Zara noticed something strange.</p>
+          <p class="font-medium text-slate-900 bg-emerald-50 p-3 rounded-xl border-l-4 border-emerald-400">
+            Old Grandma Noor's garden, which had been empty yesterday, was suddenly full of beautiful flowers.
+          </p>
+          <p class="italic text-slate-600">"Who planted these?" Zara wondered.</p>
+          <p>Grandma Noor smiled. "I don't know. They were here when I woke up."</p>
+          <p>Zara's eyes sparkled. "A mystery!"</p>
+        `,
+        actionText: "Next Chapter",
+        hint: "Tap on the soil plots in Grandma Noor's garden to plant beautiful flowers and find the seed-tag clue!",
+        badge: "garden"
+      },
+      2: {
+        number: "Chapter 2",
+        title: "The First Clue",
+        header: "The First Clue",
+        text: `
+          <p>The next day, Zara found another mystery.</p>
+          <p class="font-medium text-slate-900 bg-sky-50 p-3 rounded-xl border-l-4 border-sky-400">
+            Benny, a stray dog, always had fresh food and water waiting for him. But nobody knew who was feeding him.
+          </p>
+          <p>Near the bowl, Zara found a small <strong class="text-blue-600">blue ribbon</strong>.</p>
+          <p class="italic text-slate-600">"This must be a clue," she said.</p>
+          <p>She carefully put it in her detective notebook.</p>
+        `,
+        actionText: "Next Chapter",
+        hint: "Search Benny's garden corner for the small blue ribbon. Click it to add to your notebook!",
+        badge: "ribbon"
+      },
+      3: {
+        number: "Chapter 3",
+        title: "More Secrets",
+        header: "More Secrets",
+        text: `
+          <p>Soon Zara noticed even more strange things.</p>
+          <div class="space-y-2 bg-indigo-50 p-3 rounded-xl border-l-4 border-indigo-400 text-sm">
+            <p>• A lost toy suddenly returned to a little boy.</p>
+            <p>• Books appeared at the town library.</p>
+            <p>• Fresh vegetables were left at the door of an elderly couple.</p>
+          </div>
+          <p>Someone was helping people all over town. But who?</p>
+        `,
+        actionText: "Next Chapter",
+        hint: "Connect all deliveries in the Kindness Matcher mini-game to unlock the chapter's badge!",
+        badge: "deliveries"
+      },
+      4: {
+        number: "Chapter 4",
+        title: "Following the Clues",
+        header: "Following the Clues",
+        text: `
+          <p>Zara watched carefully.</p>
+          <p>One evening she saw Mr. Ali the gardener carrying flowers.</p>
+          <p>Another day she saw a schoolgirl leaving food for Benny.</p>
+          <p class="font-medium text-slate-900 bg-amber-50 p-3 rounded-xl border-l-4 border-amber-400">
+            Later she noticed a baker giving bread to families who needed help.
+          </p>
+          <p>Everyone seemed to be helping someone.</p>
+        `,
+        actionText: "Next Chapter",
+        hint: "Use Zara's spyglass binoculars to click on all 3 townspeople and log their quiet acts!",
+        badge: "observations"
+      },
+      5: {
+        number: "Chapter 5",
+        title: "The Big Discovery",
+        header: "The Big Discovery",
+        text: `
+          <p>Zara finally realized the truth.</p>
+          <p class="font-medium text-slate-900 bg-rose-50 p-3 rounded-xl border-l-4 border-rose-400 text-lg">
+            There wasn't just one secret helper. There were many!
+          </p>
+          <p>The gardener, the baker, the schoolchildren, and even Grandma Noor were all doing kind things quietly.</p>
+          <p class="italic">Nobody wanted praise. They simply wanted to help.</p>
+        `,
+        actionText: "Next Chapter",
+        hint: "Match the correct townspeople with their secret tasks to help Zara piece together the deduction network!",
+        badge: "network"
+      },
+      6: {
+        number: "Chapter 6",
+        title: "The Kindness Festival",
+        header: "The Kindness Festival",
+        text: `
+          <p>Zara shared her discovery with the town.</p>
+          <p>Soon everyone gathered in the town square.</p>
+          <p class="font-medium text-slate-900 bg-yellow-50 p-3 rounded-xl border-l-4 border-yellow-400">
+            Instead of celebrating one hero, they celebrated everyone's kindness. People promised to do one kind act every day.
+          </p>
+          <p>The town became happier than ever. <strong>The End.</strong></p>
+          <div class="border-t border-dashed border-amber-300 pt-3">
+            <span class="text-xs uppercase font-extrabold text-amber-800">Zara's Final Note:</span>
+            <p class="italic text-slate-700 bg-amber-100/40 p-2.5 rounded-xl mt-1">
+              "The greatest mystery wasn't who the helpers were. The greatest mystery was how kindness could spread from one person to another."
+            </p>
+          </div>
+        `,
+        actionText: "Return Home",
+        hint: "Tap on the Festival Square stage to release colorful confetti stars and complete the interactive book!",
+        badge: "festival"
+      }
+    };
+
+    // System State
+    let currentChapter = 1;
+    let badges = {
+      garden: false,
+      ribbon: false,
+      deliveries: false,
+      network: false,
+      festival: false
+    };
+
+    // Interactive Game Variables
+    // Ch 1
+    let plantedCount = 0;
+    // Ch 2
+    let ribbonCollected = false;
+    // Ch 3
+    let selectedItem = null;
+    let matchesSolved = 0;
+    // Ch 4
+    let spiedPeople = { 'mr-ali': false, 'schoolgirl': false, 'baker': false };
+    // Ch 5
+    let deductionsComplete = false;
+    // Ch 6
+    let confettiCount = 0;
+
+    // Load Game Progress
+    window.onload = function() {
+      const storedBadges = localStorage.getItem('zara_adventure_badges');
+      if (storedBadges) {
+        badges = JSON.parse(storedBadges);
+      }
+      const storedChapter = localStorage.getItem('zara_adventure_chapter');
+      if (storedChapter) {
+        currentChapter = parseInt(storedChapter);
+      }
+      const storedNotes = localStorage.getItem('zara_detective_notes_saved');
+      if (storedNotes) {
+        document.getElementById('detectiveNotes').value = storedNotes;
+      }
+      
+      goToChapter(currentChapter);
+      updateBadgeUI();
+    };
+
+    function saveState() {
+      localStorage.setItem('zara_adventure_badges', JSON.stringify(badges));
+      localStorage.setItem('zara_adventure_chapter', currentChapter.toString());
+    }
+
+    // Auto-save notebook
+    document.getElementById('detectiveNotes').addEventListener('input', function(e) {
+      localStorage.setItem('zara_detective_notes_saved', e.target.value);
+    });
+
+    // Navigation and Panels Switching
+    function goToChapter(chapterNum) {
+      currentChapter = chapterNum;
+      saveState();
+
+      // Clear layout classes
+      document.getElementById('gameContent').classList.remove('hidden');
+      document.getElementById('panel-notebook').classList.add('hidden');
+
+      // Update Nav Buttons Styles
+      for(let i = 1; i <= 6; i++) {
+        const btn = document.getElementById(`nav-ch${i}`);
+        if(i === chapterNum) {
+          btn.className = "px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-amber-500 text-white";
+        } else {
+          btn.className = "px-4 py-2 rounded-2xl font-bold text-sm transition-all shadow-sm bg-slate-100 text-slate-600 hover:bg-slate-200";
+        }
+      }
+
+      // Hide all Stage panels, show current one
+      for(let i = 1; i <= 6; i++) {
+        document.getElementById(`stage-ch${i}`).classList.add('hidden');
+      }
+      document.getElementById(`stage-ch${chapterNum}`).classList.remove('hidden');
+
+      // Update Book Content
+      const data = chapters[chapterNum];
+      document.getElementById('bookChapterNumber').innerText = data.number;
+      document.getElementById('bookChapterTitle').innerText = data.title;
+      document.getElementById('storyHeader').innerText = data.header;
+      document.getElementById('storyText').innerHTML = data.text;
+      
+      const actionBtn = document.getElementById('bookActionBtn');
+      actionBtn.innerHTML = `<span>${data.actionText}</span> <i class="fa-solid fa-circle-arrow-right"></i>`;
+      document.getElementById('bookActionHint').innerText = data.hint;
+
+      // Adjust Chapter Action Button State
+      evaluateChapterProgress();
+    }
+
+    function switchTab(tabId) {
+      if (tabId === 'notebook') {
+        document.getElementById('gameContent').classList.add('hidden');
+        document.getElementById('panel-notebook').classList.remove('hidden');
+        document.getElementById('notebookAlert').classList.add('hidden');
+      } else {
+        goToChapter(currentChapter);
+      }
+    }
+
+    function evaluateChapterProgress() {
+      const actionBtn = document.getElementById('bookActionBtn');
+      let isCompleted = false;
+
+      switch(currentChapter) {
+        case 1:
+          isCompleted = (plantedCount >= 4);
+          break;
+        case 2:
+          isCompleted = ribbonCollected;
+          break;
+        case 3:
+          isCompleted = (matchesSolved >= 3);
+          break;
+        case 4:
+          isCompleted = Object.values(spiedPeople).every(v => v === true);
+          break;
+        case 5:
+          isCompleted = deductionsComplete;
+          break;
+        case 6:
+          isCompleted = (confettiCount >= 5);
+          break;
+      }
+
+      if (isCompleted) {
+        actionBtn.disabled = false;
+        actionBtn.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 px-4 rounded-2xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center space-x-2 text-sm md:text-base cursor-pointer";
+        if (currentChapter === 6) {
+          actionBtn.innerHTML = `<span>Play Again!</span> <i class="fa-solid fa-rotate-right"></i>`;
+        }
+      } else {
+        actionBtn.disabled = true;
+        actionBtn.className = "w-full bg-slate-200 text-slate-400 font-extrabold py-3 px-4 rounded-2xl cursor-not-allowed flex items-center justify-center space-x-2 text-sm md:text-base";
+      }
+    }
+
+    function onChapterAction() {
+      if (currentChapter < 6) {
+        goToChapter(currentChapter + 1);
+      } else {
+        // Reset full game
+        currentChapter = 1;
+        plantedCount = 0;
+        ribbonCollected = false;
+        matchesSolved = 0;
+        spiedPeople = { 'mr-ali': false, 'schoolgirl': false, 'baker': false };
+        deductionsComplete = false;
+        confettiCount = 0;
+        badges = { garden: false, ribbon: false, deliveries: false, network: false, festival: false };
+        
+        // Reset garden plots
+        for(let i=0; i<8; i++) {
+          const plot = document.getElementById(`garden-${i}`);
+          plot.innerHTML = "🕳️";
+          plot.className = "h-16 rounded-xl bg-amber-900/10 hover:bg-emerald-100 border-2 border-dashed border-emerald-300 flex items-center justify-center text-3xl cursor-pointer transition-all";
+        }
+        
+        // Reset ribbon clue
+        const ribbonEl = document.getElementById('blueRibbon');
+        ribbonEl.classList.remove('hidden');
+        document.getElementById('ribbonBanner').innerText = "Not Found Yet";
+        
+        // Reset matcher
+        matchesSolved = 0;
+        document.getElementById('matchScore').innerText = "0/3 Solved";
+        const items = ['toy', 'books', 'veggies'];
+        const targets = ['boy', 'library', 'couple'];
+        items.forEach(it => {
+          document.getElementById(`item-${it}`).className = "w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all";
+        });
+        targets.forEach(t => {
+          document.getElementById(`target-${t}`).className = "w-full flex items-center space-x-3 p-3 bg-white hover:bg-indigo-50 border-2 border-slate-200 rounded-xl transition-all";
+        });
+
+        // Reset spyglass
+        for (const k in spiedPeople) {
+          spiedPeople[k] = false;
+          document.getElementById(`spy-${k}`).innerText = "Unwatched";
+          document.getElementById(`spy-${k}`).className = "text-[10px] bg-slate-100 text-slate-500 font-bold px-2 py-0.5 rounded-full mt-2";
+        }
+
+        // Reset deductions
+        document.getElementById('deduct-ali').value = "";
+        document.getElementById('deduct-girl').value = "";
+        document.getElementById('deduct-baker').value = "";
+        document.getElementById('revealStatus').innerText = "Connecting Clues";
+
+        saveState();
+        updateBadgeUI();
+        goToChapter(1);
+        showToast("Detective Case Reset! Let's solve it again.", "fa-solid fa-arrow-rotate-left");
+      }
+    }
+
+    // CHAPTER 1 GAMEPLAY: Garden
+    function tapGardenPlot(plotIndex) {
+      const plot = document.getElementById(`garden-${plotIndex}`);
+      if (plot.innerHTML === "🕳️") {
+        const plants = ["🌸", "🌹", "🌷", "🌻"];
+        const randomFlower = plants[Math.floor(Math.random() * plants.length)];
+        plot.innerHTML = randomFlower;
+        plot.className = "h-16 rounded-xl bg-emerald-100 border-2 border-emerald-400 flex items-center justify-center text-3xl transition-all scale-105";
+        
+        plantedCount++;
+        
+        if (plantedCount === 4) {
+          badges.garden = true;
+          saveState();
+          updateBadgeUI();
+          showToast("Aha! Found a marker showing Mr. Ali planted these flowers!", "fa-solid fa-leaf");
+          document.getElementById('gardenPrompt').innerHTML = "🌱 Excellent! All beautiful flowers are planted. Grandma Noor's garden is gorgeous! Ready to continue.";
+          document.getElementById('notebookAlert').classList.remove('hidden');
+          evaluateChapterProgress();
+        } else if (plantedCount < 4) {
+          showToast(`Planted ${plantedCount}/4 flower beds!`, "fa-solid fa-seedling");
+        }
+      }
+    }
+
+    // CHAPTER 2 GAMEPLAY: Benny
+    function triggerBennyBark() {
+      showToast("Benny: Woof woof! (He wags his fluffy tail in joy)", "fa-solid fa-dog");
+    }
+    function triggerBowlSplash() {
+      showToast("Splish splash! The water bowl is sparkling clean.", "fa-solid fa-droplet");
+    }
+    function triggerBowlEat() {
+      showToast("Crunch crunch! Benny has a tasty pile of kibbles.", "fa-solid fa-bone");
+    }
+    function findRibbon() {
+      if (!ribbonCollected) {
+        ribbonCollected = true;
+        badges.ribbon = true;
+        saveState();
+        updateBadgeUI();
+
+        const ribbonEl = document.getElementById('blueRibbon');
+        ribbonEl.className = "absolute right-8 bottom-4 transition-all duration-700 transform scale-150 rotate-360 opacity-0 pointer-events-none";
+        setTimeout(() => ribbonEl.classList.add('hidden'), 700);
+
+        document.getElementById('ribbonBanner').innerText = "Evidence Gathered";
+        document.getElementById('ribbonBanner').className = "text-xs text-emerald-800 font-bold bg-emerald-100 px-2.5 py-1 rounded-full";
+        document.getElementById('bennyPrompt').innerHTML = "🎗️ Ribbon clue collected successfully and registered in Zara's Case notes!";
+        document.getElementById('notebookAlert').classList.remove('hidden');
+        showToast("Blue Ribbon added to Zara's Notebook!", "fa-solid fa-tag");
+        evaluateChapterProgress();
+      }
+    }
+
+    // CHAPTER 3 GAMEPLAY: Matching
+    function selectMatchItem(itemId, element) {
+      selectedItem = itemId;
+      // Reset items borders, highlight current
+      const items = ['toy', 'books', 'veggies'];
+      items.forEach(it => {
+        document.getElementById(`item-${it}`).classList.remove('border-indigo-500', 'bg-indigo-50/50');
+      });
+      element.classList.add('border-indigo-500', 'bg-indigo-50/50');
+      document.getElementById('matcherPrompt').innerText = `You selected: ${element.innerText}. Now tap on the correct recipient!`;
+    }
+
+    function targetMatchRecipient(recipientId, element) {
+      if (!selectedItem) {
+        showToast("Please pick an item first!", "fa-solid fa-circle-exclamation");
+        return;
+      }
+
+      // Check validation
+      let correct = false;
+      if (selectedItem === 'toy' && recipientId === 'boy') correct = true;
+      if (selectedItem === 'books' && recipientId === 'library') correct = true;
+      if (selectedItem === 'veggies' && recipientId === 'couple') correct = true;
+
+      if (correct) {
+        // Complete the match
+        document.getElementById(`item-${selectedItem}`).className = "w-full flex items-center space-x-3 p-3 bg-emerald-50 border-2 border-emerald-400 rounded-xl opacity-60 cursor-not-allowed";
+        document.getElementById(`item-${selectedItem}`).disabled = true;
+        document.getElementById(`target-${recipientId}`).className = "w-full flex items-center space-x-3 p-3 bg-emerald-50 border-2 border-emerald-400 rounded-xl opacity-60 cursor-not-allowed";
+        document.getElementById(`target-${recipientId}`).disabled = true;
+
+        matchesSolved++;
+        document.getElementById('matchScore').innerText = `${matchesSolved}/3 Solved`;
+        showToast("Perfect Match!", "fa-solid fa-check-double");
+        selectedItem = null;
+
+        if (matchesSolved === 3) {
+          badges.deliveries = true;
+          saveState();
+          updateBadgeUI();
+          document.getElementById('matcherPrompt').innerHTML = "🎁 Wonderful job! All silent acts of kindness matched perfectly and returned!";
+          document.getElementById('notebookAlert').classList.remove('hidden');
+          evaluateChapterProgress();
+        } else {
+          document.getElementById('matcherPrompt').innerText = "Item delivered! Match the next parcel.";
+        }
+      } else {
+        showToast("Hmm, that doesn't seem to fit. Let's try matching again!", "fa-solid fa-circle-xmark");
+      }
+    }
+
+    // CHAPTER 4 GAMEPLAY: Spyglass deck
+    function spyOnPerson(personId) {
+      if (!spiedPeople[personId]) {
+        spiedPeople[personId] = true;
+        
+        const label = document.getElementById(`spy-${personId}`);
+        label.innerText = "Observed!";
+        label.className = "text-[10px] bg-emerald-500 text-white font-extrabold px-2 py-0.5 rounded-full mt-2";
+
+        let log = "";
+        if (personId === 'mr-ali') log = "Mr. Ali planting beautiful flowers secretly.";
+        if (personId === 'schoolgirl') log = "A schoolgirl preparing clean food and water for Benny the dog.";
+        if (personId === 'baker') log = "The friendly Baker carrying warm bread loaves to families in need.";
+
+        showToast(log, "fa-solid fa-binoculars");
+
+        const allSpied = Object.values(spiedPeople).every(v => v === true);
+        if (allSpied) {
+          document.getElementById('binocularsPrompt').innerHTML = "👀 Incredible detective work! You have observed every citizen's good deeds.";
+          evaluateChapterProgress();
+        } else {
+          document.getElementById('binocularsPrompt').innerText = "Observed! Focus the spyglass on the remaining townspeople.";
+        }
+      }
+    }
+
+    // CHAPTER 5 GAMEPLAY: Deductions
+    function checkDeductions() {
+      const ali = document.getElementById('deduct-ali').value;
+      const girl = document.getElementById('deduct-girl').value;
+      const baker = document.getElementById('deduct-baker').value;
+
+      if (ali === 'flowers' && girl === 'dog' && baker === 'bread') {
+        deductionsComplete = true;
+        badges.network = true;
+        saveState();
+        updateBadgeUI();
+
+        document.getElementById('revealStatus').innerText = "Network Decoded!";
+        document.getElementById('revealStatus').className = "text-xs text-emerald-800 font-bold bg-emerald-100 px-2.5 py-1 rounded-full";
+        document.getElementById('deductionPrompt').innerHTML = "💡 Brilliant! Zara deduces: there is not just one secret helper, but everyone is sharing in kindness!";
+        document.getElementById('notebookAlert').classList.remove('hidden');
+        showToast("Kindness Network Decoded! Ready for the Festival.", "fa-solid fa-network-wired");
+        evaluateChapterProgress();
+      } else {
+        deductionsComplete = false;
+        // If all are selected but wrong
+        if (ali && girl && baker) {
+          showToast("A connection seems incorrect. Re-read the logs!", "fa-solid fa-triangle-exclamation");
+        }
+        evaluateChapterProgress();
+      }
+    }
+
+    // CHAPTER 6 GAMEPLAY: Festival celebration
+    function releaseConfetti(event) {
+      confettiCount++;
+      const stage = document.getElementById('festivalStage');
+      
+      // Spawn a colorful text element at mouse/touch click point
+      const sparkles = ["✨", "🌸", "🌟", "🎉", "💛", "🎈"];
+      const randomSparkle = sparkles[Math.floor(Math.random() * sparkles.length)];
+      
+      const sp = document.createElement('div');
+      sp.className = "absolute text-3xl select-none pointer-events-none animate-ping";
+      sp.innerText = randomSparkle;
+      
+      // Position inside stage relative
+      const rect = stage.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      
+      sp.style.left = `${x - 15}px`;
+      sp.style.top = `${y - 15}px`;
+      
+      stage.appendChild(sp);
+      setTimeout(() => sp.remove(), 1000);
+
+      document.getElementById('sparkleStats').innerText = `${confettiCount} Confetti Poppers Released!`;
+
+      if (confettiCount === 5) {
+        badges.festival = true;
+        saveState();
+        updateBadgeUI();
+        document.getElementById('notebookAlert').classList.remove('hidden');
+        showToast("The Parade is fully glittering with kindness!", "fa-solid fa-masks-theater");
+        evaluateChapterProgress();
+      }
+    }
+
+    // Update Badge Locker in Notebook
+    function updateBadgeUI() {
+      const ids = ['garden', 'ribbon', 'deliveries', 'network'];
+      let count = 0;
+      ids.forEach(id => {
+        const card = document.getElementById(`badge-${id}`);
+        if (badges[id]) {
+          card.classList.remove('opacity-50');
+          card.classList.add('border-emerald-400', 'bg-emerald-50/20');
+          count++;
+        } else {
+          card.classList.add('opacity-50');
+          card.classList.remove('border-emerald-400', 'bg-emerald-50/20');
+        }
+      });
+
+      if (badges.festival) count++;
+
+      document.getElementById('badgeCounter').innerText = `${count}/5 Badges`;
+      
+      if (count === 5) {
+        document.getElementById('notebookCaseStatus').innerText = "All Mysteries Solved! 🌟";
+        document.getElementById('notebookCaseStatus').className = "font-black text-emerald-600";
+      } else {
+        document.getElementById('notebookCaseStatus').innerText = "Active Investigation";
+        document.getElementById('notebookCaseStatus').className = "font-bold text-amber-600";
+      }
+    }
+
+    // Custom Toast
+    function showToast(message, iconClass = "fa-solid fa-circle-info") {
+      const toast = document.getElementById('customToast');
+      const icon = document.getElementById('toastIcon');
+      const text = document.getElementById('toastMessage');
+
+      icon.className = `${iconClass} text-yellow-400 text-base`;
+      text.innerText = message;
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    // AI Chat Assistant (Gemini) Integration
+    const apiKey = ""; // API key is handled automatically by the premium sandbox
+
+    function openAiModal() {
+      document.getElementById('aiModal').classList.remove('hidden');
+    }
+
+    function closeAiModal() {
+      document.getElementById('aiModal').classList.add('hidden');
+    }
+
+    function setQuery(text) {
+      document.getElementById('userInput').value = text;
+      sendMessage();
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('userInput');
+      const query = input.value.trim();
+      if (!query) return;
+
+      addMessage(query, 'user');
+      input.value = "";
+
+      const loaderId = addMessage("Analyzing story files...", 'bot', true);
+
+      // Context prompt for Zara the detective
+      const systemPrompt = `You are the interactive AI helper for Zara, the primary character in the storybook "The Kindness Detective: Zara and the Secret Helpers".
+      Story Outline:
+      - Chapter 1: Grandma Noor's garden was empty, but suddenly filled with flowers.
+      - Chapter 2: Benny the stray dog has food & water, with a blue ribbon clue dropped nearby.
+      - Chapter 3: Packages returned, books appeared, veggies delivered.
+      - Chapter 4: Zara watches Mr. Ali (planting), a Schoolgirl (feeding Benny), and the Baker (delivering bread).
+      - Chapter 5: Zara discovers there are *many* secret helpers doing good deeds quietly.
+      - Chapter 6: The town celebrates a Kindness Festival in the town square.
+      Your tone: Very engaging, sweet, encouraging, educational. Never reveal spoilers directly; encourage curiosity and puzzle solving! Let the children know how kindness is a beautiful chain reaction.`;
+
+      let attempts = 0;
+      const maxAttempts = 5;
+      let delay = 1000;
+      let success = false;
+      let replyText = "";
+
+      while (attempts < maxAttempts && !success) {
+        try {
+          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: query }] }],
+              systemInstruction: { parts: [{ text: systemPrompt }] }
+            })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Oops! My investigative magnifying glass is foggy. Try asking again!";
+            success = true;
+          } else {
+            throw new Error("API error");
+          }
+        } catch (error) {
+          attempts++;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+        }
+      }
+
+      document.getElementById(loaderId).remove();
+
+      if (success) {
+        addMessage(replyText, 'bot');
+      } else {
+        addMessage("Oops, I lost connection to the Detective Headquarters! Let's check our notes and try asking again in a moment.", 'bot');
+      }
+    }
+
+    function addMessage(text, sender, isLoader = false) {
+      const chat = document.getElementById('chatMessages');
+      const msgId = 'msg-' + Math.random().toString(36).substring(2, 9);
+      
+      const div = document.createElement('div');
+      div.id = msgId;
+      div.className = `flex items-start space-x-2.5 ${sender === 'user' ? 'justify-end' : ''}`;
+
+      if (sender === 'user') {
+        div.innerHTML = `
+          <div class="bg-amber-500 text-white p-3 rounded-2xl rounded-tr-none text-xs md:text-sm shadow-sm max-w-[80%]">
+            ${text}
+          </div>
+          <div class="bg-amber-100 p-1.5 rounded-lg text-lg">🧐</div>
+        `;
+      } else {
+        div.innerHTML = `
+          <div class="bg-amber-100 p-1.5 rounded-lg text-lg">🔍</div>
+          <div class="bg-white p-3 rounded-2xl rounded-tl-none text-xs md:text-sm text-slate-700 shadow-sm max-w-[80%] ${isLoader ? 'animate-pulse' : ''}">
+            ${text}
+          </div>
+        `;
+      }
+
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+      return msgId;
+    }
+  </script>
+</body>
+</html>
+
+```
